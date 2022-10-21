@@ -1,8 +1,13 @@
 import { DataSource } from "typeorm";
+import { CreateUsers1666356344930 as CreateUsers } from "./migrations/1666356344930-CreateUsers";
 
-const dataSource = new DataSource({
+export const dataSource = new DataSource({
   type: "sqlite",
-  database: "../database/database.sqlite",
+  database: "src/database/database.sqlite",
+  migrations: [CreateUsers],
 });
 
-dataSource.initialize();
+dataSource
+  .initialize()
+  .then((status) => console.log(status))
+  .catch((err) => console.log(err));
