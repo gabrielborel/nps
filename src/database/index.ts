@@ -6,12 +6,10 @@ import { CreateSurveys1666384351188 as CreateSurveys } from "./migrations/166638
 
 export const dataSource = new DataSource({
   type: "sqlite",
-  database: "src/database/database.sqlite",
+  database:
+    process.env.NODE_ENV === "test"
+      ? "src/database/database.test.sqlite"
+      : "src/database/database.sqlite",
   migrations: [CreateUsers, CreateSurveys],
   entities: [User, Survey],
 });
-
-dataSource
-  .initialize()
-  .then(() => console.log("dataSource initialized"))
-  .catch((err) => console.log(err));
